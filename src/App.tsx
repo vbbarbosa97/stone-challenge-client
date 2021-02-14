@@ -1,9 +1,11 @@
-import React from 'react';
+import GlobalStyles from "./shared/styles/global";
+import Routes from "./routes/routes";
 
 function App() {
   return (
     <div>
-      <h1>Avaliacao Stone</h1>
+      <GlobalStyles />
+      <Routes />
     </div>
   );
 }
