@@ -1,12 +1,13 @@
-import GlobalStyles from "./shared/styles/global";
-import Routes from "./routes/routes";
+import { SnackbarProvider } from 'notistack';
+import Routes from './routes/routes';
+import GlobalStyles from './shared/styles/global';
 
 function App() {
   return (
-    <div>
+    <SnackbarProvider maxSnack={3} autoHideDuration={5000} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
       <GlobalStyles />
       <Routes />
-    </div>
+    </SnackbarProvider>
   );
 }
 
