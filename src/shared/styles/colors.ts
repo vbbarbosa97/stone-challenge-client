@@ -13,6 +13,7 @@ export const Colors = {
   white: '#FFFFFF',
 
   red: '#EB5757',
+  strongRed: '#ec0404',
   orange: '#F2994A',
   yellow: '#F2C94C',
 

@@ -1,6 +1,5 @@
 import React, { ComponentType } from 'react';
-
-import { Route, RouteProps, Redirect } from 'react-router-dom';
+import { Redirect, Route, RouteProps } from 'react-router-dom';
 import Layout from '../Layout';
 
 interface CustomRouteProps extends RouteProps {
