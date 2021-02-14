@@ -1,23 +1,33 @@
 import React, { ComponentType } from 'react';
 
 import { Route, RouteProps, Redirect } from 'react-router-dom';
+import Layout from '../Layout';
 
 interface CustomRouteProps extends RouteProps {
   isPrivate?: boolean;
   component: ComponentType;
+  headerActive: boolean;
 }
 
-export const CustomRoute = ({ isPrivate = true, component: Component, ...rest }: CustomRouteProps) => {
+export const CustomRoute = ({ isPrivate = true, headerActive, component: Component, ...rest }: CustomRouteProps) => {
   const authenticated = false;
 
   const privateRoute = () => {
     if (isPrivate) {
       if (authenticated) {
-        return <h1>teste</h1>;
+        return (
+          <Layout headerActive={headerActive}>
+            <Component />
+          </Layout>
+        );
       }
       return <Redirect to="/" />;
     }
-    return <Component />;
+    return (
+      <Layout headerActive={headerActive}>
+        <Component />
+      </Layout>
+    );
   };
 
   return <Route {...rest} render={privateRoute} />;

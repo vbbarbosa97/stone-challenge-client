@@ -8,8 +8,8 @@ const Routes = () => {
   const routes = (
     <BrowserRouter>
       <Switch>
-        <CustomRoute exact path={LOGIN_PATH.Main} isPrivate={false} component={LoginRoute} />
-        <CustomRoute exact path="/teste" isPrivate component={LoginRoute} />
+        <CustomRoute exact path={LOGIN_PATH.Main} isPrivate={false} headerActive={false} component={LoginRoute} />
+        <CustomRoute exact path="/teste" isPrivate={false} headerActive component={LoginRoute} />
       </Switch>
     </BrowserRouter>
   );
