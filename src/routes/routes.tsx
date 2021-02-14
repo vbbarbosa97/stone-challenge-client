@@ -3,13 +3,14 @@ import React, { Suspense } from 'react';
 import { BrowserRouter, Switch } from 'react-router-dom';
 import { CustomRoute } from '../shared/components/CustomRoute/CustomRoute';
 import { LoginRoute, LOGIN_PATH } from './Login.routes';
+import DashboardRoutes, { DASHBOARD_PATH } from './Dashboard.routes';
 
 const Routes = () => {
   const routes = (
     <BrowserRouter>
       <Switch>
         <CustomRoute exact path={LOGIN_PATH.Main} isPrivate={false} headerActive={false} component={LoginRoute} />
-        <CustomRoute exact path="/teste" isPrivate={false} headerActive component={LoginRoute} />
+        <CustomRoute exact path={DASHBOARD_PATH.Main} isPrivate={false} headerActive component={DashboardRoutes} />
       </Switch>
     </BrowserRouter>
   );
