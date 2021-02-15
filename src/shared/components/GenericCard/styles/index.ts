@@ -11,6 +11,17 @@ interface StarProps {
   loading: 'yes' | 'no';
 }
 
+const appearFromRight = keyframes`
+  from {
+    opacity:0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`;
+
 export const MainContainer = styled(Card)<CardProps>`
   display: flex;
 
@@ -20,6 +31,8 @@ export const MainContainer = styled(Card)<CardProps>`
 
   width: 250px;
   height: 350px;
+
+  animation: ${appearFromRight} 1s;
 
   &.MuiPaper-rounded {
     border-radius: 8px;

@@ -1,4 +1,5 @@
 import { FormControl, Grid, IconButton, InputAdornment } from '@material-ui/core';
+import { useSnackbar } from 'notistack';
 import React, { ChangeEvent, useState } from 'react';
 import { IoMdClose, IoMdSearch } from 'react-icons/io';
 import { CustomInput } from '../styled/CustomInput';
@@ -9,6 +10,7 @@ interface IInputSearch {
 
 export const InputSearch = ({ actionSearch }: IInputSearch) => {
   const [value, setValue] = useState<string>('');
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleChangeText = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setValue(event.target.value);
@@ -19,7 +21,11 @@ export const InputSearch = ({ actionSearch }: IInputSearch) => {
   };
 
   const handleSearch = async () => {
-    await actionSearch(value);
+    if (value.length > 2) {
+      await actionSearch(value);
+    } else {
+      enqueueSnackbar('Digite no minimo 3 caracteres.', { variant: 'warning' });
+    }
   };
 
   return (
