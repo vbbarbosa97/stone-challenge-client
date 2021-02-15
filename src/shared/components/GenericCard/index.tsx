@@ -1,7 +1,7 @@
 import { IconButton } from '@material-ui/core';
-import React from 'react';
+import React, { useState } from 'react';
 import { FiBook, FiExternalLink, FiUsers } from 'react-icons/fi';
-import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
+import { Colors } from '../../styles/colors';
 import * as S from './styles';
 
 interface IGernericCard {
@@ -9,8 +9,8 @@ interface IGernericCard {
   imgUrl: string;
   isFavorite: boolean;
   title: string;
-  actionAddFavorite?: () => void;
-  actionRemoveFavorite?: () => void;
+  // actionAddFavorite?: () => void;
+  // actionRemoveFavorite?: () => void;
   actionDetail?: () => void;
   actionNavigate?: () => void;
 }
@@ -20,16 +20,30 @@ const GenericCard = ({
   imgUrl,
   isFavorite,
   title,
-  actionAddFavorite,
-  actionRemoveFavorite,
+  // actionAddFavorite,
+  // actionRemoveFavorite,
   actionDetail,
   actionNavigate,
 }: IGernericCard) => {
+  const [loadingStar, setLoadingStar] = useState<boolean>(false);
+
+  const handleActionAddFavorite = () => {
+    setLoadingStar(true);
+
+    setTimeout(() => {
+      setLoadingStar(false);
+    }, 3000);
+  };
+
   const actions = [
     {
       name: 'Favorito',
-      icon: isFavorite ? <MdFavorite size={20} /> : <MdFavoriteBorder size={20} />,
-      action: isFavorite ? actionRemoveFavorite : actionAddFavorite,
+      icon: isFavorite ? (
+        <S.Star loading={loadingStar ? 'yes' : 'no'} size={20} color={Colors.yellow} />
+      ) : (
+        <S.StarBorder loading={loadingStar ? 'yes' : 'no'} size={20} color={Colors.yellow} />
+      ),
+      action: isFavorite ? handleActionAddFavorite : handleActionAddFavorite,
     },
     {
       name: 'Detalhes',
@@ -51,7 +65,7 @@ const GenericCard = ({
         <S.Actions>
           {actions.map(item => (
             <div key={item.name}>
-              <IconButton>{item.icon}</IconButton>
+              <IconButton onClick={item.action}>{item.icon}</IconButton>
               <strong>{item.name}</strong>
             </div>
           ))}

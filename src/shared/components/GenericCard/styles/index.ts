@@ -1,9 +1,14 @@
-import styled from 'styled-components';
 import { Card } from '@material-ui/core';
+import { MdStar, MdStarBorder } from 'react-icons/md';
+import styled, { css, keyframes } from 'styled-components';
 import { Colors } from '../../../styles/colors';
 
 interface CardProps {
   imgurl: string;
+}
+
+interface StarProps {
+  loading: 'yes' | 'no';
 }
 
 export const Container = styled(Card)<CardProps>`
@@ -19,6 +24,33 @@ export const Container = styled(Card)<CardProps>`
   &.MuiPaper-rounded {
     border-radius: 8px;
   }
+`;
+
+const animationRotation = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+export const Star = styled(MdStar)<StarProps>`
+  ${props =>
+    props.loading === 'yes'
+      ? css`
+          animation: ${animationRotation} infinite 2s linear;
+        `
+      : ''}
+`;
+
+export const StarBorder = styled(MdStarBorder)<StarProps>`
+  ${props =>
+    props.loading === 'yes'
+      ? css`
+          animation: ${animationRotation} infinite 2s linear;
+        `
+      : ''}
 `;
 
 export const Content = styled.div`
