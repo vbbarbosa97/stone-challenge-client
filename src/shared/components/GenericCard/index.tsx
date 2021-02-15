@@ -1,34 +1,62 @@
 import { IconButton } from '@material-ui/core';
 import React, { useState } from 'react';
 import { FiBook, FiExternalLink, FiUsers } from 'react-icons/fi';
+import { InfoCard } from '../../../models/AddComicFavorite';
 import { Colors } from '../../styles/colors';
 import * as S from './styles';
 
 export interface IGenericCard {
   id: string;
   type: 'Comic' | 'Character';
+  description?: string | null;
   imgUrl: string;
   isFavorite: boolean;
   title: string;
   linkDetail: string;
   routeNavigate: string;
-  actionAddFavorite?: (id: string) => Promise<void>;
-  actionRemoveFavorite?: (id: string) => Promise<void>;
+  actionAddFavorite?: (data: InfoCard) => Promise<boolean>;
+  actionRemoveFavorite?: (id: string) => Promise<boolean>;
 }
 
-const GenericCard = ({ type, imgUrl, isFavorite, title, linkDetail, routeNavigate }: IGenericCard) => {
+const GenericCard = ({
+  id,
+  type,
+  imgUrl,
+  isFavorite,
+  title,
+  linkDetail,
+  routeNavigate,
+  actionAddFavorite,
+  actionRemoveFavorite,
+}: IGenericCard) => {
   const [loadingStar, setLoadingStar] = useState<boolean>(false);
+  const [cardFavorite, setCardFavorite] = useState<boolean>(isFavorite);
 
   const handleActionAddFavorite = async () => {
-    setLoadingStar(true);
-    // await actionAddFavorite(id);
-    setLoadingStar(false);
+    if (actionAddFavorite) {
+      setLoadingStar(true);
+      const info: InfoCard = {
+        id,
+        imgUrl,
+        title,
+        linkDetail,
+        routeNavigate,
+      };
+      const response = await actionAddFavorite(info);
+
+      setCardFavorite(response);
+      setLoadingStar(false);
+    }
   };
 
   const handleActionRemoveFavorite = async () => {
-    setLoadingStar(true);
-    // await actionRemoveFavorite(id);
-    setLoadingStar(false);
+    if (actionRemoveFavorite) {
+      setLoadingStar(true);
+      const response = await actionRemoveFavorite(id);
+
+      setCardFavorite(response);
+      setLoadingStar(false);
+    }
   };
 
   const actionDetail = () => {
@@ -38,28 +66,6 @@ const GenericCard = ({ type, imgUrl, isFavorite, title, linkDetail, routeNavigat
   const actionNavigate = () => {
     console.log(routeNavigate);
   };
-
-  const actions = [
-    {
-      name: 'Favorito',
-      icon: isFavorite ? (
-        <S.Star loading={loadingStar ? 'yes' : 'no'} size={20} color={Colors.yellow} />
-      ) : (
-        <S.StarBorder loading={loadingStar ? 'yes' : 'no'} size={20} color={Colors.yellow} />
-      ),
-      action: isFavorite ? handleActionRemoveFavorite : handleActionAddFavorite,
-    },
-    {
-      name: 'Detalhes',
-      icon: <FiExternalLink size={20} />,
-      action: actionDetail,
-    },
-    {
-      name: type === 'Character' ? 'Revistas' : 'Personagens',
-      icon: type === 'Character' ? <FiBook size={20} /> : <FiUsers size={20} />,
-      action: actionNavigate,
-    },
-  ];
   return (
     <S.MainContainer imgurl={imgUrl}>
       <S.CustomDiv>
@@ -67,12 +73,37 @@ const GenericCard = ({ type, imgUrl, isFavorite, title, linkDetail, routeNavigat
           <strong>{title}</strong>
         </S.Information>
         <S.Actions>
-          {actions.map(item => (
-            <div key={Math.random()}>
-              <IconButton onClick={item.action}>{item.icon}</IconButton>
-              <strong>{item.name}</strong>
-            </div>
-          ))}
+          <div>
+            {cardFavorite ? (
+              <IconButton onClick={handleActionRemoveFavorite}>
+                <S.Star loading={loadingStar ? 'yes' : 'no'} size={20} color={Colors.yellow} />
+              </IconButton>
+            ) : (
+              <IconButton onClick={handleActionAddFavorite}>
+                <S.StarBorder loading={loadingStar ? 'yes' : 'no'} size={20} color={Colors.yellow} />
+              </IconButton>
+            )}
+            <strong>Favorito</strong>
+          </div>
+          <div>
+            <IconButton onClick={actionDetail}>
+              <FiExternalLink size={20} />
+            </IconButton>
+            <strong>Detalhes</strong>
+          </div>
+          <div>
+            {type === 'Character' ? (
+              <IconButton onClick={actionNavigate}>
+                <FiBook size={20} />
+              </IconButton>
+            ) : (
+              <IconButton onClick={actionNavigate}>
+                <FiUsers size={20} />
+              </IconButton>
+            )}
+
+            <strong>{type === 'Character' ? 'Revistas' : 'Personagens'}</strong>
+          </div>
         </S.Actions>
       </S.CustomDiv>
     </S.MainContainer>
