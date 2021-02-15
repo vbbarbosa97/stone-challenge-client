@@ -4,35 +4,39 @@ import { FiBook, FiExternalLink, FiUsers } from 'react-icons/fi';
 import { Colors } from '../../styles/colors';
 import * as S from './styles';
 
-interface IGernericCard {
+export interface IGenericCard {
+  id: string;
   type: 'Comic' | 'Character';
   imgUrl: string;
   isFavorite: boolean;
   title: string;
-  // actionAddFavorite?: () => void;
-  // actionRemoveFavorite?: () => void;
-  actionDetail?: () => void;
-  actionNavigate?: () => void;
+  linkDetail: string;
+  routeNavigate: string;
+  actionAddFavorite?: (id: string) => Promise<void>;
+  actionRemoveFavorite?: (id: string) => Promise<void>;
 }
 
-const GenericCard = ({
-  type,
-  imgUrl,
-  isFavorite,
-  title,
-  // actionAddFavorite,
-  // actionRemoveFavorite,
-  actionDetail,
-  actionNavigate,
-}: IGernericCard) => {
+const GenericCard = ({ type, imgUrl, isFavorite, title, linkDetail, routeNavigate }: IGenericCard) => {
   const [loadingStar, setLoadingStar] = useState<boolean>(false);
 
-  const handleActionAddFavorite = () => {
+  const handleActionAddFavorite = async () => {
     setLoadingStar(true);
+    // await actionAddFavorite(id);
+    setLoadingStar(false);
+  };
 
-    setTimeout(() => {
-      setLoadingStar(false);
-    }, 3000);
+  const handleActionRemoveFavorite = async () => {
+    setLoadingStar(true);
+    // await actionRemoveFavorite(id);
+    setLoadingStar(false);
+  };
+
+  const actionDetail = () => {
+    window.location.href = linkDetail;
+  };
+
+  const actionNavigate = () => {
+    console.log(routeNavigate);
   };
 
   const actions = [
@@ -43,7 +47,7 @@ const GenericCard = ({
       ) : (
         <S.StarBorder loading={loadingStar ? 'yes' : 'no'} size={20} color={Colors.yellow} />
       ),
-      action: isFavorite ? handleActionAddFavorite : handleActionAddFavorite,
+      action: isFavorite ? handleActionRemoveFavorite : handleActionAddFavorite,
     },
     {
       name: 'Detalhes',
@@ -57,21 +61,21 @@ const GenericCard = ({
     },
   ];
   return (
-    <S.Container imgurl={imgUrl}>
-      <S.Content>
+    <S.MainContainer imgurl={imgUrl}>
+      <S.CustomDiv>
         <S.Information>
           <strong>{title}</strong>
         </S.Information>
         <S.Actions>
           {actions.map(item => (
-            <div key={item.name}>
+            <div key={Math.random()}>
               <IconButton onClick={item.action}>{item.icon}</IconButton>
               <strong>{item.name}</strong>
             </div>
           ))}
         </S.Actions>
-      </S.Content>
-    </S.Container>
+      </S.CustomDiv>
+    </S.MainContainer>
   );
 };
 

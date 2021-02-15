@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 import Logo from '../../assets/Logo.svg';
 import { Input } from '../../shared/components/Form';
 import { MainContainer } from '../../shared/components/styled/MainContainer';
-import * as S from './style/index';
+import * as S from './styles/index';
 
 interface FormData {
   email: string;
