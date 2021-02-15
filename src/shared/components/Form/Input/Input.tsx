@@ -1,6 +1,7 @@
 import { useField } from '@unform/core';
 import { useEffect, useRef } from 'react';
 import { BsFillEyeFill, BsFillEyeSlashFill } from 'react-icons/bs';
+import { Colors } from '../../../styles/colors';
 import * as S from './styles/index';
 
 interface Props {
@@ -36,8 +37,8 @@ export function Input({
   }, [fieldName, registerField]);
 
   return (
-    <div>
-      <div>
+    <S.CustomDiv>
+      <S.CustomDivInput>
         <div style={{ marginTop: 16, fontSize: 12 }}>{field}</div>
         <S.CustomInput
           inputRef={inputRef}
@@ -47,13 +48,23 @@ export function Input({
           endAdornment={
             toggleIconPassword &&
             (togglePassword ? (
-              <BsFillEyeFill style={{ cursor: 'pointer' }} onClick={handleTogglePassowrd} />
+              <BsFillEyeFill
+                style={{ cursor: 'pointer' }}
+                fontSize={20}
+                color={Colors.gray2}
+                onClick={handleTogglePassowrd}
+              />
             ) : (
-              <BsFillEyeSlashFill style={{ cursor: 'pointer' }} onClick={handleHiddenPassowrd} />
+              <BsFillEyeSlashFill
+                style={{ cursor: 'pointer' }}
+                color={Colors.gray2}
+                fontSize={20}
+                onClick={handleHiddenPassowrd}
+              />
             ))
           }
         />
-      </div>
+      </S.CustomDivInput>
       {error && (
         <span
           style={{
@@ -66,6 +77,6 @@ export function Input({
           {error}
         </span>
       )}
-    </div>
+    </S.CustomDiv>
   );
 }

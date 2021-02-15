@@ -67,6 +67,7 @@ export const Register = () => {
             display: 'flex',
             alignItems: 'center',
             flexDirection: 'column',
+            width: '100%',
           }}>
           <S.Logo src={Logo} alt="logo" />
           <S.CustomTitleRegister>Register</S.CustomTitleRegister>
