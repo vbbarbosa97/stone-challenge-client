@@ -11,7 +11,7 @@ interface StarProps {
   loading: 'yes' | 'no';
 }
 
-export const Container = styled(Card)<CardProps>`
+export const MainContainer = styled(Card)<CardProps>`
   display: flex;
 
   background-image: ${props => `url(${props.imgurl})`};
@@ -53,7 +53,7 @@ export const StarBorder = styled(MdStarBorder)<StarProps>`
       : ''}
 `;
 
-export const Content = styled.div`
+export const CustomDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-self: flex-end;

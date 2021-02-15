@@ -12,7 +12,7 @@ const Layout: React.FC<ILayout> = ({ children, headerActive }) => {
   const NameUserFake = 'Vinicius Batista Barbosa';
 
   return (
-    <S.Container>
+    <S.MainContainer>
       {headerActive && (
         <S.Header>
           <div>
@@ -29,7 +29,7 @@ const Layout: React.FC<ILayout> = ({ children, headerActive }) => {
       )}
 
       {children}
-    </S.Container>
+    </S.MainContainer>
   );
 };
 
