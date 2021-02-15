@@ -1,5 +1,13 @@
 import { DataResult } from './ResponseApiMarvel';
 
+export interface InfoCard {
+  id: string;
+  description?: string | null;
+  imgUrl: string;
+  title: string;
+  linkDetail: string;
+  routeNavigate: string;
+}
 export class Card {
   id: string;
 

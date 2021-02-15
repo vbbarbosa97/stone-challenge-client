@@ -1,7 +1,7 @@
 import { IconButton } from '@material-ui/core';
 import React, { useState } from 'react';
 import { FiBook, FiExternalLink, FiUsers } from 'react-icons/fi';
-import { InfoCard } from '../../../models/AddComicFavorite';
+import { InfoCard } from '../../../models/Card';
 import { Colors } from '../../styles/colors';
 import * as S from './styles';
 

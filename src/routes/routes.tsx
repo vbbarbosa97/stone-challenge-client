@@ -2,6 +2,7 @@ import { LinearProgress } from '@material-ui/core';
 import React, { Suspense } from 'react';
 import { BrowserRouter, Switch } from 'react-router-dom';
 import { CustomRoute } from '../shared/components/CustomRoute/CustomRoute';
+import CharacterRoutes, { CHARACTER_PATH } from './Character.routes';
 import ComicRoutes, { COMIC_PATH } from './Comic.routes';
 import { DashboardRoute, DASHBOARD_PATH } from './Dashboard.routes';
 import { LoginRoute, LOGIN_PATH } from './Login.routes';
@@ -17,6 +18,7 @@ const Routes = () => {
         <CustomRoute exact path={DASHBOARD_PATH.Main} isPrivate={false} headerActive component={DashboardRoute} />
         <CustomRoute exact path={UPDATE_PATH.Main} isPrivate={false} headerActive component={UpdateRoute} />
         <CustomRoute exact path={COMIC_PATH.Main} isPrivate={false} headerActive component={ComicRoutes} />
+        <CustomRoute exact path={CHARACTER_PATH.Main} isPrivate={false} headerActive component={CharacterRoutes} />
       </Switch>
     </BrowserRouter>
   );
