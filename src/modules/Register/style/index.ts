@@ -65,7 +65,6 @@ export const CustomButton = styled(Button)`
     &:hover {
       background: ${Colors.strongRed};
       color: ${Colors.white};
-      border: none;
     }
   }
 `;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Card } from '@material-ui/core';
-import { Colors } from '../../styles/colors';
+import { Colors } from '../../../styles/colors';
 
 interface CardProps {
   imgurl: string;

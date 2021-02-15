@@ -2,7 +2,6 @@ import { IconButton } from '@material-ui/core';
 import React from 'react';
 import { FiBook, FiExternalLink, FiUsers } from 'react-icons/fi';
 import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
-import { Colors } from '../../styles/colors';
 import * as S from './styles';
 
 interface IGernericCard {
