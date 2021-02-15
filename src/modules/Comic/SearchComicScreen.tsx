@@ -2,8 +2,8 @@
 import { useSnackbar } from 'notistack';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { InfoCard, RequestAddComicFavorite } from '../../models/AddComicFavorite';
-import { Card } from '../../models/Card';
+import { RequestAddComicFavorite } from '../../models/AddComicFavorite';
+import { Card, InfoCard } from '../../models/Card';
 import { getComics } from '../../services/comic.service';
 import { addComicFavorite, removeComicFavorite } from '../../services/user.service';
 import { IGenericCard } from '../../shared/components/GenericCard';

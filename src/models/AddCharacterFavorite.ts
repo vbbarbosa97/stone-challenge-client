@@ -1,17 +1,18 @@
 import { InfoCard } from './Card';
 
-export interface IRequestAddComicFavorite {
-  comicId: string;
-  title: string;
+export interface IRequestAddCharacterFavorite {
+  characterId: string;
+  name: string;
   description: string;
   thumbnailUrl: string;
   detailUrl: string;
   userId?: string;
 }
-export class RequestAddComicFavorite {
-  comicId: string;
 
-  title: string;
+export class RequestAddCharacterFavorite {
+  characterId: string;
+
+  name: string;
 
   description: string;
 
@@ -22,17 +23,17 @@ export class RequestAddComicFavorite {
   userId?: string | undefined;
 
   constructor(data: InfoCard) {
-    this.comicId = data.id;
-    this.title = data.title;
+    this.characterId = data.id;
+    this.name = data.title;
     this.description = data.description ? data.description : ' ';
     this.thumbnailUrl = data.imgUrl;
     this.detailUrl = data.linkDetail;
   }
 }
 
-export interface IResponseAddComicFavorite {
-  comicId: string;
-  title: string;
+export interface IResponseAddCharacterFavorite {
+  characterId: string;
+  name: string;
   description: string;
   thumbnailUrl: string;
   detailUrl: string;
