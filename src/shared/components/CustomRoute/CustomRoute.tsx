@@ -1,5 +1,6 @@
 import React, { ComponentType } from 'react';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
+import { useAuthenticationContext } from '../../../context/reducers/auth/authContext';
 import Layout from '../Layout';
 
 interface CustomRouteProps extends RouteProps {
@@ -9,7 +10,9 @@ interface CustomRouteProps extends RouteProps {
 }
 
 export const CustomRoute = ({ isPrivate = true, headerActive, component: Component, ...rest }: CustomRouteProps) => {
-  const authenticated = false;
+  const { state } = useAuthenticationContext();
+  const { token } = state.user;
+  const authenticated = token;
   const notAthenticated = !authenticated;
   const openRoute = !isPrivate;
 
