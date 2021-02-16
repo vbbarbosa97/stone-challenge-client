@@ -4,16 +4,22 @@ import { Form } from '@unform/web';
 import React, { useRef, useState } from 'react';
 import * as Yup from 'yup';
 import Logo from '../../assets/Logo.svg';
+import { IRequestCreateUser } from '../../models/CreateUser';
 import { Input } from '../../shared/components/Form';
 import { MainContainer } from '../../shared/components/styled/MainContainer';
 import * as S from './styles/index';
 
 interface FormData {
+  name: string;
   email: string;
   password: string;
 }
 
-export const Register = () => {
+interface IRegister {
+  actionCreateUser: (data: IRequestCreateUser) => Promise<boolean>;
+}
+
+export const Register = ({ actionCreateUser }: IRegister) => {
   const formRef = useRef<FormHandles>(null);
   const [togglePassword, setTogglePassword] = useState<boolean>(false);
   const [togglePasswordConfirm, setTogglePasswordConfirm] = useState<boolean>(false);
@@ -38,7 +44,7 @@ export const Register = () => {
     try {
       formRef.current!.setErrors({});
       const schema = Yup.object().shape({
-        nome: Yup.string().required('O nome e obrigatório'),
+        name: Yup.string().required('O nome e obrigatório'),
         email: Yup.string().email('Digite um e-mail').required('O e-mail e obrigatório'),
         password: Yup.string().required('A senha e obrigatoria'),
         passwordVerification: Yup.string()
@@ -46,7 +52,18 @@ export const Register = () => {
           .oneOf([Yup.ref('password'), null], 'Confirmação incorreta'),
       });
       await schema.validate(data, { abortEarly: false });
-      reset();
+
+      const request: IRequestCreateUser = {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      };
+
+      const response = await actionCreateUser(request);
+      if (response) {
+        reset();
+      }
+
       formRef.current!.setErrors({});
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
@@ -71,7 +88,7 @@ export const Register = () => {
           }}>
           <S.Logo src={Logo} alt="logo" />
           <S.CustomTitleRegister>Register</S.CustomTitleRegister>
-          <Input type="nome" name="nome" placeholder="Insira seu nome" field="Nome" />
+          <Input type="name" name="name" placeholder="Insira seu nome" field="Nome" />
           <Input type="email" name="email" placeholder="Insira seu e-mail" field="E-mail" />
           <Input
             type={togglePassword ? 'text' : 'password'}

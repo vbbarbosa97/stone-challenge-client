@@ -4,6 +4,7 @@ import { Form } from '@unform/web';
 import React, { useRef, useState } from 'react';
 import * as Yup from 'yup';
 import Logo from '../../assets/Logo.svg';
+import { IRequestSession } from '../../models/Session';
 import { Input } from '../../shared/components/Form';
 import { MainContainer } from '../../shared/components/styled/MainContainer';
 import * as S from './styles/index';
@@ -15,10 +16,12 @@ interface FormData {
 
 interface LoginProps {
   navigateToRegister: () => void;
+  actionCreateSession: (data: IRequestSession) => Promise<boolean>;
 }
 
-export const Login = ({ navigateToRegister }: LoginProps) => {
+export const Login = ({ navigateToRegister, actionCreateSession }: LoginProps) => {
   const formRef = useRef<FormHandles>(null);
+
   const [togglePassword, setTogglePassword] = useState<boolean>(false);
 
   const handleVisiblePassword = () => {
@@ -33,11 +36,15 @@ export const Login = ({ navigateToRegister }: LoginProps) => {
     try {
       formRef.current!.setErrors({});
       const schema = Yup.object().shape({
-        email: Yup.string().email('Digite um e-mail').required('O e-mail e obrigatório'),
+        email: Yup.string().email('Digite um e-mail válido.').required('O e-mail e obrigatório'),
         password: Yup.string().required('A senha e obrigatória'),
       });
       await schema.validate(data, { abortEarly: false });
-      reset();
+
+      const response = await actionCreateSession(data);
+      if (response) {
+        reset();
+      }
       formRef.current!.setErrors({});
     } catch (err) {
       if (err instanceof Yup.ValidationError) {

@@ -1,4 +1,4 @@
-import { Typography, Link, Button } from '@material-ui/core';
+import { Button, Link, Typography } from '@material-ui/core';
 import styled, { keyframes } from 'styled-components';
 import { Colors } from '../../../shared/styles/colors';
 
