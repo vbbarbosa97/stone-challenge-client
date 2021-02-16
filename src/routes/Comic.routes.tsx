@@ -1,5 +1,5 @@
 import { LinearProgress } from '@material-ui/core';
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import SearchComicScreen from '../modules/Comic/SearchComicScreen';
 

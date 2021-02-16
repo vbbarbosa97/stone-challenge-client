@@ -1,13 +1,14 @@
-import { DataResult } from './ResponseApiMarvel';
-
-export interface InfoCard {
+export interface IResponseCharacterFavorite {
+  characterId: string;
+  name: string;
+  description: string;
+  thumbnailUrl: string;
+  detailUrl: string;
+  userId: string;
   id: string;
-  description?: string | null;
-  imgUrl: string;
-  title: string;
-  linkDetail: string;
 }
-export class Card {
+
+export class CardCharacterFavorite {
   id: string;
 
   type: 'Comic' | 'Character';
@@ -22,11 +23,11 @@ export class Card {
 
   linkDetail: string;
 
-  constructor(type: 'Comic' | 'Character', data: DataResult) {
-    this.id = data.id.toString();
+  constructor(type: 'Comic' | 'Character', data: IResponseCharacterFavorite) {
+    this.id = data.characterId;
     this.type = type;
     this.imgUrl = data.thumbnailUrl;
-    this.isFavorite = data.isFavorited;
+    this.isFavorite = true;
     this.title = data.name;
     this.description = data.description;
     this.linkDetail = data.detailUrl;
