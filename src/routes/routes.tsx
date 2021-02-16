@@ -1,9 +1,7 @@
 import { LinearProgress } from '@material-ui/core';
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense } from 'react';
 import { BrowserRouter, Switch } from 'react-router-dom';
-import { useAuthenticationContext } from '../context/reducers/auth/authContext';
 import { CustomRoute } from '../shared/components/CustomRoute/CustomRoute';
-import { getUserLocalStorage } from '../utils/functions';
 import CharacterRoutes, { CHARACTER_PATH } from './Character.routes';
 import ComicRoutes, { COMIC_PATH } from './Comic.routes';
 import { DashboardRoute, DASHBOARD_PATH } from './Dashboard.routes';
@@ -12,16 +10,6 @@ import { RegisterRoute, REGISTER_PATH } from './Register.routes';
 import { UpdateRoute, UPDATE_PATH } from './Update.routes';
 
 const Routes = () => {
-  const { dispatch, actions } = useAuthenticationContext();
-
-  useEffect(() => {
-    const response = getUserLocalStorage();
-    if (response) {
-      dispatch({ type: actions.LOGIN_SUCCESS, payload: response });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const routes = (
     <BrowserRouter>
       <Switch>

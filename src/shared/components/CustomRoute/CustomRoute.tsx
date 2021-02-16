@@ -11,33 +11,30 @@ interface CustomRouteProps extends RouteProps {
 
 export const CustomRoute = ({ isPrivate = true, headerActive, component: Component, ...rest }: CustomRouteProps) => {
   const { state } = useAuthenticationContext();
-  const { token } = state.user;
-  const authenticated = token;
-  const notAthenticated = !authenticated;
+
+  const authenticated = state.user.token;
   const openRoute = !isPrivate;
 
   const privateRoute = () => {
-    if (authenticated && isPrivate) {
-      return (
-        <Layout headerActive={headerActive}>
-          <Component />
-        </Layout>
-      );
+    if (isPrivate) {
+      if (authenticated) {
+        return (
+          <Layout headerActive={headerActive}>
+            <Component />
+          </Layout>
+        );
+      }
+      return <Redirect to="/" />;
     }
-
-    if (authenticated && openRoute) {
+    if (openRoute && authenticated) {
       return <Redirect to="/dashboard" />;
     }
 
-    if (notAthenticated && openRoute) {
-      return (
-        <Layout headerActive={headerActive}>
-          <Component />
-        </Layout>
-      );
-    }
-
-    return <Redirect to="/" />;
+    return (
+      <Layout headerActive={headerActive}>
+        <Component />
+      </Layout>
+    );
   };
 
   return <Route {...rest} render={privateRoute} />;

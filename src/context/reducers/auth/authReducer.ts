@@ -4,17 +4,18 @@ import { AuthState } from './constants';
 import { AuthActions } from '../../types/auth.types';
 import { GenericContext } from '../genericContext';
 
-type AuthenticationAction =
-  | GenericContext<AuthActions.LOGIN_SUCCESS, IResponseSession>
-  | GenericContext<AuthActions.LOGIN_FAILURE>
-  | GenericContext<AuthActions.LOGOUT>;
-
 export type AuthenticationDispatch = (action: AuthenticationAction) => void;
 
 export function authReducer(state: AuthState, action: AuthenticationAction): AuthState {
   switch (action.type) {
     case AuthActions.LOGIN_SUCCESS: {
       return { ...state, user: action.payload ?? ({} as IResponseSession) };
+    }
+    case AuthActions.UPDATE_SUCCESS: {
+      return { ...state, user: action.payload ?? ({} as IResponseSession) };
+    }
+    case AuthActions.UPDATE_FAILURE: {
+      return { ...state };
     }
     case AuthActions.LOGIN_FAILURE: {
       return { ...state };
@@ -27,3 +28,10 @@ export function authReducer(state: AuthState, action: AuthenticationAction): Aut
     }
   }
 }
+
+type AuthenticationAction =
+  | GenericContext<AuthActions.LOGIN_SUCCESS, IResponseSession>
+  | GenericContext<AuthActions.LOGIN_FAILURE>
+  | GenericContext<AuthActions.UPDATE_SUCCESS, IResponseSession>
+  | GenericContext<AuthActions.UPDATE_FAILURE>
+  | GenericContext<AuthActions.LOGOUT>;

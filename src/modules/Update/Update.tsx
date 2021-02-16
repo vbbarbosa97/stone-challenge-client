@@ -3,10 +3,11 @@ import { FormHandles, FormHelpers, SubmitHandler } from '@unform/core';
 import { Form } from '@unform/web';
 import React, { useRef, useState } from 'react';
 import * as Yup from 'yup';
+import BackgroundUpdate from '../../assets/BackgroundUpdate.jpeg';
+import { useAuthenticationContext } from '../../context/reducers/auth/authContext';
+import { IRequestUpdateUser } from '../../models/UpdateUser';
 import { Input } from '../../shared/components/Form';
 import * as S from './styles/index';
-import BackgroundUpdate from '../../assets/BackgroundUpdate.jpeg';
-import { IRequestUpdateUser } from '../../models/UpdateUser';
 
 interface FormData {
   name: string;
@@ -22,8 +23,17 @@ interface IUpdate {
 
 export const Update = ({ navigateToDashboard, actionUpdateUser }: IUpdate) => {
   const formRef = useRef<FormHandles>(null);
+  const { state } = useAuthenticationContext();
+
   const [togglePassword, setTogglePassword] = useState<boolean>(false);
   const [togglePasswordConfirm, setTogglePasswordConfirm] = useState<boolean>(false);
+
+  const { user } = state;
+  const initialData: FormData = {
+    email: user.email,
+    name: user.userName,
+  };
+
   const handleVisiblePassword = () => {
     setTogglePassword(false);
   };
@@ -92,6 +102,7 @@ export const Update = ({ navigateToDashboard, actionUpdateUser }: IUpdate) => {
         <S.CustomTitle variant="h5">Meu perfil</S.CustomTitle>
         <S.CustomDiv>
           <Form
+            initialData={initialData}
             ref={formRef}
             onSubmit={handleSubmit}
             style={{

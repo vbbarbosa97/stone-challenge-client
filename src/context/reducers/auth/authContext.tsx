@@ -1,4 +1,6 @@
+/* eslint-disable prefer-const */
 import React, { createContext, useReducer } from 'react';
+import { getUserLocalStorage } from '../../../utils/functions';
 import { AuthActions } from '../../types/auth.types';
 import { AuthenticationDispatch, authReducer } from './authReducer';
 import { AuthState, AUTH_INITIAL_STATE } from './constants';
@@ -9,7 +11,13 @@ const AuthenticationDispatchContext = createContext<AuthenticationDispatch | und
 type AuthenticationProps = { children: React.ReactNode };
 
 function AuthenticationProvider({ children }: AuthenticationProps) {
-  const [state, dispatch] = useReducer(authReducer, AUTH_INITIAL_STATE);
+  const response = getUserLocalStorage();
+  let initial = AUTH_INITIAL_STATE;
+  if (response) {
+    initial = { user: response };
+  }
+
+  const [state, dispatch] = useReducer(authReducer, initial);
 
   return (
     <AuthenticationStateContext.Provider value={state}>

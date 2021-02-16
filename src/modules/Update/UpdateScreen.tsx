@@ -1,13 +1,14 @@
 /* eslint-disable no-lonely-if */
 import { useSnackbar } from 'notistack';
 import { useHistory } from 'react-router-dom';
+import { AuthAsyncActions } from '../../context/actions/authAsyncAction';
 import { IRequestUpdateUser } from '../../models/UpdateUser';
-import { updateUser } from '../../services/user.service';
 import { Update } from './Update';
 
 export const UpdateScreen = () => {
   const history = useHistory();
   const { enqueueSnackbar } = useSnackbar();
+  const { updateRequestAction } = AuthAsyncActions();
 
   const navigateToDashboard = () => {
     history.push('/dashboard');
@@ -15,7 +16,7 @@ export const UpdateScreen = () => {
 
   const actionUpdateUser = async (data: IRequestUpdateUser) => {
     try {
-      const response = await updateUser(data);
+      const response = await updateRequestAction(data);
       if (response.success) {
         history.push('/dashboard');
         enqueueSnackbar('Cadastro atualizados com sucesso', { variant: 'success' });
