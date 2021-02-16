@@ -6,7 +6,7 @@ import { AuthenticationProvider } from './context/reducers/auth/authContext';
 function App() {
   return (
     <AuthenticationProvider>
-      <SnackbarProvider maxSnack={3} autoHideDuration={5000} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
+      <SnackbarProvider maxSnack={3} autoHideDuration={3000} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
         <GlobalStyles />
         <Routes />
       </SnackbarProvider>
