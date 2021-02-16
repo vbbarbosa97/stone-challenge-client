@@ -26,7 +26,7 @@ export function Input({
   ...rest
 }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const { fieldName, registerField, error } = useField(name);
+  const { fieldName, registerField, error, defaultValue } = useField(name);
 
   useEffect(() => {
     registerField({
@@ -41,6 +41,7 @@ export function Input({
       <S.CustomDivInput>
         <div style={{ marginTop: 16, fontSize: 12 }}>{field}</div>
         <S.CustomInput
+          defaultValue={defaultValue}
           inputRef={inputRef}
           {...rest}
           placeholder={placeholder}
