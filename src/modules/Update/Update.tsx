@@ -6,13 +6,21 @@ import * as Yup from 'yup';
 import { Input } from '../../shared/components/Form';
 import * as S from './styles/index';
 import BackgroundUpdate from '../../assets/BackgroundUpdate.jpeg';
+import { IRequestUpdateUser } from '../../models/UpdateUser';
 
 interface FormData {
+  name: string;
   email: string;
-  password: string;
+  password?: string;
+  oldPassword?: string;
 }
 
-export const Update = () => {
+interface IUpdate {
+  navigateToDashboard: () => void;
+  actionUpdateUser: (data: IRequestUpdateUser) => Promise<boolean>;
+}
+
+export const Update = ({ navigateToDashboard, actionUpdateUser }: IUpdate) => {
   const formRef = useRef<FormHandles>(null);
   const [togglePassword, setTogglePassword] = useState<boolean>(false);
   const [togglePasswordConfirm, setTogglePasswordConfirm] = useState<boolean>(false);
@@ -36,7 +44,7 @@ export const Update = () => {
     try {
       formRef.current!.setErrors({});
       const schema = Yup.object().shape({
-        nome: Yup.string().required('O nome e obrigatorio'),
+        name: Yup.string().required('O nome e obrigatorio'),
         email: Yup.string().email('Digite um e-mail').required('O e-mail e obrigatorio'),
         oldPassword: Yup.string(),
         password: Yup.string().when('oldPassword', {
@@ -55,7 +63,17 @@ export const Update = () => {
 
       await schema.validate(data, { abortEarly: false });
 
-      reset();
+      const request: IRequestUpdateUser = {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        oldPassword: data.oldPassword,
+      };
+
+      const response = await actionUpdateUser(request);
+      if (response) {
+        reset();
+      }
 
       formRef.current!.setErrors({});
     } catch (err) {
@@ -81,7 +99,7 @@ export const Update = () => {
               alignItems: 'center',
               flexDirection: 'column',
             }}>
-            <Input type="nome" name="nome" placeholder="Insira seu nome" field="Nome" />
+            <Input type="name" name="name" placeholder="Insira seu nome" field="Nome" />
             <Input type="email" name="email" placeholder="Insira seu e-mail" field="E-mail" />
             <Input
               type={togglePassword ? 'text' : 'password'}
@@ -114,7 +132,9 @@ export const Update = () => {
               handleHiddenPassowrd={handleHiddenPasswordConfirm}
             />
             <S.CustomDivButton>
-              <S.CustomButtonCancel type="button">Cancelar</S.CustomButtonCancel>
+              <S.CustomButtonCancel onClick={navigateToDashboard} type="button">
+                Cancelar
+              </S.CustomButtonCancel>
               <S.CustomButton type="submit">Salvar alteracoes</S.CustomButton>
             </S.CustomDivButton>
           </Form>
