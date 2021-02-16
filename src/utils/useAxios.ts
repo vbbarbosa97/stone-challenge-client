@@ -1,5 +1,6 @@
 /* eslint-disable no-return-await */
 import mainAxios from 'axios';
+import { getUserLocalStorage } from './functions';
 import { baseApiUrl } from './values';
 
 const axios = mainAxios.create({
@@ -9,8 +10,10 @@ const axios = mainAxios.create({
 export async function axiosPostApi<T>(route: string, body: unknown = null) {
   // eslint-disable-next-line no-extra-boolean-cast
   const jsonBody = !!body ? JSON.stringify(body) : null;
-  const token =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNzJBNDMzRS1GMzZCLTE0MTAtOEIzOS0wMDdDMDQ1NEZFQkYiLCJpYXQiOjE2MTMyNDMyMjd9.CFxnqVluSpcjaThjoZSyuWEH-PlG5azCS6JoRY50c_Y';
+  const user = getUserLocalStorage();
+
+  const token = user?.token;
+
   return await axios
     .post<T>(route, jsonBody, {
       headers: {
@@ -29,7 +32,10 @@ export async function axiosPostApi<T>(route: string, body: unknown = null) {
 
 export async function axiosPutApi<T>(route: string, body: unknown) {
   const jsonBody = JSON.stringify(body);
-  const token = '';
+  const user = getUserLocalStorage();
+
+  const token = user?.token;
+
   return await axios
     .put<T>(route, jsonBody, {
       headers: {
@@ -47,7 +53,9 @@ export async function axiosPutApi<T>(route: string, body: unknown) {
 }
 
 export async function axiosGetApi<T>(route: string) {
-  const token = '';
+  const user = getUserLocalStorage();
+
+  const token = user?.token;
   return await axios
     .get<T>(route, {
       headers: {
@@ -65,7 +73,9 @@ export async function axiosGetApi<T>(route: string) {
 }
 
 export async function axiosDeleteApi<T>(route: string) {
-  const token = '';
+  const user = getUserLocalStorage();
+
+  const token = user?.token;
   return await axios
     .delete<T>(route, {
       headers: {

@@ -3,21 +3,26 @@ import { IRequestAddComicFavorite, IResponseAddComicFavorite } from '../models/A
 import { IRequestCreateUser, IResponseCreateUser } from '../models/CreateUser';
 import { IResult } from '../models/Result';
 import { IRequestUpdateUser } from '../models/UpdateUser';
+import { getUserLocalStorage } from '../utils/functions';
 import { axiosPostApi } from '../utils/useAxios';
 
 export const addComicFavorite = async (data: IRequestAddComicFavorite) => {
   const body: IRequestAddComicFavorite = data;
 
-  body.userId = '362A433E-F36B-1410-8B39-007C0454FEBF';
+  const user = getUserLocalStorage();
+
+  body.userId = user?.id;
 
   const response = await axiosPostApi<IResult<IResponseAddComicFavorite>>('user/add-comic-favorite/', body);
   return response;
 };
 
 export const removeComicFavorite = async (comicId: string) => {
+  const user = getUserLocalStorage();
+
   const body = {
     comicId,
-    userId: '362A433E-F36B-1410-8B39-007C0454FEBF',
+    userId: user?.id,
   };
 
   const response = await axiosPostApi<IResult<{}>>('user/remove-comic-favorite/', body);
@@ -27,16 +32,20 @@ export const removeComicFavorite = async (comicId: string) => {
 export const addCharacterFavorite = async (data: IRequestAddCharacterFavorite) => {
   const body: IRequestAddCharacterFavorite = data;
 
-  body.userId = '362A433E-F36B-1410-8B39-007C0454FEBF';
+  const user = getUserLocalStorage();
+
+  body.userId = user?.id;
 
   const response = await axiosPostApi<IResult<IResponseAddCharacterFavorite>>('user/add-character-favorite/', body);
   return response;
 };
 
 export const removeCharacterFavorite = async (characterId: string) => {
+  const user = getUserLocalStorage();
+
   const body = {
     characterId,
-    userId: '362A433E-F36B-1410-8B39-007C0454FEBF',
+    userId: user?.id,
   };
 
   const response = await axiosPostApi<IResult<{}>>('user/remove-character-favorite/', body);
@@ -49,7 +58,9 @@ export const createUser = async (data: IRequestCreateUser) => {
 };
 
 export const updateUser = async (data: IRequestUpdateUser) => {
-  const userId = '362A433E-F36B-1410-8B39-007C0454FEBF';
+  const user = getUserLocalStorage();
+
+  const userId = user?.id;
 
   const body: IRequestUpdateUser = {
     ...data,

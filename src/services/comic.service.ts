@@ -1,10 +1,13 @@
 import { ResponseApiMarvel } from '../models/ResponseApiMarvel';
 import { IResult } from '../models/Result';
+import { getUserLocalStorage } from '../utils/functions';
 import { axiosPostApi } from '../utils/useAxios';
 
 export const getComics = async (value: string) => {
+  const user = getUserLocalStorage();
+
   const body = {
-    userId: '362A433E-F36B-1410-8B39-007C0454FEBF',
+    userId: user?.id,
     searchParameter: value,
   };
 
