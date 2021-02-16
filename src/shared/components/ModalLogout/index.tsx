@@ -1,4 +1,3 @@
-import { Grid } from '@material-ui/core';
 import React from 'react';
 import { IoMdExit } from 'react-icons/io';
 import { Colors } from '../../styles/colors';
@@ -17,12 +16,12 @@ export const ModalLogout = ({ openModal, handleModal, actionButtonConfirm }: IMo
     <S.Modal open={openModal}>
       <S.ContentModal>
         <S.DivIcon>
-          <IoMdExit size={60} color={Colors.secondary} />
+          <IoMdExit size={60} color={Colors.strongRed} />
         </S.DivIcon>
         <S.Title>Sair</S.Title>
         <S.Subtitle>Deseja realmente sair?</S.Subtitle>
       </S.ContentModal>
-      <Grid container style={{ textAlign: 'center' }}>
+      <S.CustomGridContainer container>
         <S.CustomGridItem item xs={6}>
           <S.CustomButton colorname={Colors.gray3} onClick={closeModal} fullWidth>
             Cancelar
@@ -33,7 +32,7 @@ export const ModalLogout = ({ openModal, handleModal, actionButtonConfirm }: IMo
             Confirmar
           </S.CustomButton>
         </S.CustomGridItem>
-      </Grid>
+      </S.CustomGridContainer>
     </S.Modal>
   );
 };

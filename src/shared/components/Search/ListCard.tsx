@@ -22,7 +22,6 @@ export const ListCard = ({ data }: IListCard) => {
             actionAddFavorite={card.actionAddFavorite}
             actionRemoveFavorite={card.actionRemoveFavorite}
             linkDetail={card.linkDetail}
-            routeNavigate={card.routeNavigate}
           />
         </S.CustomGrid>
       ))}

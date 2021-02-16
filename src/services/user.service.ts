@@ -1,10 +1,12 @@
 import { IRequestAddCharacterFavorite, IResponseAddCharacterFavorite } from '../models/AddCharacterFavorite';
 import { IRequestAddComicFavorite, IResponseAddComicFavorite } from '../models/AddComicFavorite';
+import { IResponseCharacterFavorite } from '../models/CharacterFavorite';
+import { IResponseComicFavorite } from '../models/ComicFavorite';
 import { IRequestCreateUser, IResponseCreateUser } from '../models/CreateUser';
 import { IResult } from '../models/Result';
 import { IRequestUpdateUser } from '../models/UpdateUser';
 import { getUserLocalStorage } from '../utils/functions';
-import { axiosPostApi } from '../utils/useAxios';
+import { axiosGetApi, axiosPostApi } from '../utils/useAxios';
 
 export const addComicFavorite = async (data: IRequestAddComicFavorite) => {
   const body: IRequestAddComicFavorite = data;
@@ -68,5 +70,25 @@ export const updateUser = async (data: IRequestUpdateUser) => {
   };
 
   const response = await axiosPostApi<IResult<IResponseCreateUser>>('user/update', body);
+  return response;
+};
+
+export const getComicsFavorites = async () => {
+  const user = getUserLocalStorage();
+
+  const userId = user?.id;
+  const url = `user/${userId}/comics-favorites`;
+
+  const response = await axiosGetApi<IResult<IResponseComicFavorite[]>>(url);
+  return response;
+};
+
+export const getCharactersFavorites = async () => {
+  const user = getUserLocalStorage();
+
+  const userId = user?.id;
+  const url = `user/${userId}/characters-favorites`;
+
+  const response = await axiosGetApi<IResult<IResponseCharacterFavorite[]>>(url);
   return response;
 };

@@ -13,9 +13,9 @@ export interface IGenericCard {
   isFavorite: boolean;
   title: string;
   linkDetail: string;
-  routeNavigate: string;
   actionAddFavorite?: (data: InfoCard) => Promise<boolean>;
   actionRemoveFavorite?: (id: string) => Promise<boolean>;
+  actionNavigate?: (id: string) => void;
 }
 
 const GenericCard = ({
@@ -25,9 +25,9 @@ const GenericCard = ({
   isFavorite,
   title,
   linkDetail,
-  routeNavigate,
   actionAddFavorite,
   actionRemoveFavorite,
+  actionNavigate,
 }: IGenericCard) => {
   const [loadingStar, setLoadingStar] = useState<boolean>(false);
   const [cardFavorite, setCardFavorite] = useState<boolean>(isFavorite);
@@ -40,7 +40,6 @@ const GenericCard = ({
         imgUrl,
         title,
         linkDetail,
-        routeNavigate,
       };
       const response = await actionAddFavorite(info);
 
@@ -63,9 +62,6 @@ const GenericCard = ({
     window.location.href = linkDetail;
   };
 
-  const actionNavigate = () => {
-    console.log(routeNavigate);
-  };
   return (
     <S.MainContainer imgurl={imgUrl}>
       <S.CustomDiv>
@@ -92,17 +88,19 @@ const GenericCard = ({
             <strong>Detalhes</strong>
           </div>
           <div>
-            {type === 'Character' ? (
-              <IconButton onClick={actionNavigate}>
+            {type === 'Character' && actionNavigate && (
+              <IconButton onClick={() => actionNavigate!(id)}>
                 <FiBook size={20} />
               </IconButton>
-            ) : (
-              <IconButton onClick={actionNavigate}>
+            )}
+            {type === 'Comic' && actionNavigate && (
+              <IconButton onClick={() => actionNavigate!(id)}>
                 <FiUsers size={20} />
               </IconButton>
             )}
 
-            <strong>{type === 'Character' ? 'Revistas' : 'Personagens'}</strong>
+            <strong>{type === 'Character' && actionNavigate && 'Revistas'}</strong>
+            <strong>{type === 'Comic' && actionNavigate && 'Personagens'}</strong>
           </div>
         </S.Actions>
       </S.CustomDiv>

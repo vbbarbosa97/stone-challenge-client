@@ -87,6 +87,10 @@ export const CustomButton = styled(Button)<ButtonProps>`
   }
 `;
 
+export const CustomGridContainer = styled(Grid)`
+  text-align: center;
+`;
+
 export const CustomGridItem = styled(Grid)`
   border-top-style: outset;
   border-top-color: ${Colors.whiteSmooth};
