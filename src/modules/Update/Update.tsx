@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { CircularProgress } from '@material-ui/core';
 import { FormHandles, FormHelpers, SubmitHandler } from '@unform/core';
 import { Form } from '@unform/web';
 import React, { useRef, useState } from 'react';
@@ -7,6 +8,7 @@ import BackgroundUpdate from '../../assets/BackgroundUpdate.jpeg';
 import { useAuthenticationContext } from '../../context/reducers/auth/authContext';
 import { IRequestUpdateUser } from '../../models/UpdateUser';
 import { Input } from '../../shared/components/Form';
+import { Colors } from '../../shared/styles/colors';
 import * as S from './styles/index';
 
 interface FormData {
@@ -17,11 +19,12 @@ interface FormData {
 }
 
 interface IUpdate {
+  loading: boolean;
   navigateToDashboard: () => void;
   actionUpdateUser: (data: IRequestUpdateUser) => Promise<boolean>;
 }
 
-export const Update = ({ navigateToDashboard, actionUpdateUser }: IUpdate) => {
+export const Update = ({ loading, navigateToDashboard, actionUpdateUser }: IUpdate) => {
   const formRef = useRef<FormHandles>(null);
   const { state } = useAuthenticationContext();
 
@@ -143,10 +146,13 @@ export const Update = ({ navigateToDashboard, actionUpdateUser }: IUpdate) => {
               handleHiddenPassowrd={handleHiddenPasswordConfirm}
             />
             <S.CustomDivButton>
-              <S.CustomButtonCancel onClick={navigateToDashboard} type="button">
+              <S.CustomButtonCancel disabled={loading} onClick={navigateToDashboard} type="button">
                 Cancelar
               </S.CustomButtonCancel>
-              <S.CustomButton type="submit">Salvar alteracoes</S.CustomButton>
+              <S.CustomButton disabled={loading} type="submit">
+                {loading && <CircularProgress size={30} style={{ color: Colors.white }} />}
+                Salvar alteracoes
+              </S.CustomButton>
             </S.CustomDivButton>
           </Form>
         </S.CustomDiv>
