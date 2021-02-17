@@ -21,9 +21,10 @@ const SearchCharacterScreen = () => {
     if (type === 'Character') {
       const urlCharacter = `/character/${id}/comics`;
       history.push(urlCharacter);
+    } else {
+      const urlComic = `/comic/${id}/characters`;
+      history.push(urlComic);
     }
-    const urlComic = `/comic/${id}/characters`;
-    history.push(urlComic);
   };
 
   const actionSearch = async (value: string) => {

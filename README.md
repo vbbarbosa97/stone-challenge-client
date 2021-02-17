@@ -1,46 +1,91 @@
-# Getting Started with Create React App
+# Stone Challenge Client
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The project consists of a client-side application where you will find all the information about the Marvel comics and characters.
 
-## Available Scripts
+<br>
 
-In the project directory, you can run:
+`Login`:
 
-### `npm start`
+<div>
+  <p align="center">
+    <img src="./.github/login.png" alt="login" height="325" width="90%">
+  </p>
+</div>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+`Register`:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+<div>
+  <p align="center">
+    <img src="./.github/register.png" alt="register" height="325" width="90%">
+  </p>
+</div>
 
-### `npm test`
+`Dashboard`:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<div>
+  <p align="center">
+    <img src="./.github/dashboard.png" alt="dashboard" height="325" width="90%">
+  </p>
+</div>
 
-### `npm run build`
+`Update Profile`:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<div>
+  <p align="center">
+    <img src="./.github/update.png" alt="update" height="325" width="90%">
+  </p>
+</div>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+`Search Comics`:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<div>
+  <p align="center">
+    <img src="./.github/search-comics.png" alt="search-comics" height="325" width="90%">
+  </p>
+</div
 
-### `npm run eject`
+`Search Characters`:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+<div>
+  <p align="center">
+    <img src="./.github/search-characters.png" alt="search-characters" height="325" width="90%">
+  </p>
+</div
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+`Comics of Character`:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+<div>
+  <p align="center">
+    <img src="./.github/comics-of-character.png" alt="comics-of-character" height="325" width="90%">
+  </p>
+</div
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+`Characters of Comic`:
 
-## Learn More
+<div>
+  <p align="center">
+    <img src="./.github/characters-of-comic.png" alt="characters-of-comic" height="325" width="90%">
+  </p>
+</div
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<br>
+<br>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Technologies used
+
+- [React](https://github.com/facebook/react)
+- [MaterialUi](https://github.com/mui-org/material-ui)
+- [Styled-Components](https://github.com/styled-components/styled-components)
+- [Unform](https://github.com/unform/unform)
+
+<br>
+
+## Running the application in a development environment
+
+- Clone this repository with the command: <br>git clone https://github.com/vbbarbosa97/stone-challenge-client.git
+
+- Have NPM or Yarn installed.
+
+- Install the project dependencies with the command:<br> `npm install` or `yarn install`.
+
+- After installing the dependencies, execute the command:<br> `yarn start` or `npm start`.

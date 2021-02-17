@@ -52,7 +52,7 @@ export const Dashboard = ({
 
       <S.CustomDiv>
         <S.DivHeader>
-          <h3>Comics</h3>
+          <h3>Revistas</h3>
           <S.CustomDivContainer>
             <span>Ver mais</span>
             <IconButton onClick={navigateToSearchComic}>
