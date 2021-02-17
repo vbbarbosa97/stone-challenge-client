@@ -1,11 +1,13 @@
 /* eslint-disable no-lonely-if */
 import { useSnackbar } from 'notistack';
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AuthAsyncActions } from '../../context/actions/authAsyncAction';
 import { IRequestUpdateUser } from '../../models/UpdateUser';
 import { Update } from './Update';
 
 export const UpdateScreen = () => {
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
   const { enqueueSnackbar } = useSnackbar();
   const { updateRequestAction } = AuthAsyncActions();
@@ -16,13 +18,16 @@ export const UpdateScreen = () => {
 
   const actionUpdateUser = async (data: IRequestUpdateUser) => {
     try {
+      setLoading(true);
       const response = await updateRequestAction(data);
       if (response.success) {
         history.push('/dashboard');
         enqueueSnackbar('Cadastro atualizados com sucesso', { variant: 'success' });
       }
+      setLoading(false);
       return response.success;
     } catch (error) {
+      setLoading(false);
       if (error.response.status && error.response.status === 403) {
         enqueueSnackbar('Email já está sendo utilizado.', { variant: 'error' });
       } else {
@@ -37,7 +42,7 @@ export const UpdateScreen = () => {
     }
   };
 
-  return <Update navigateToDashboard={navigateToDashboard} actionUpdateUser={actionUpdateUser} />;
+  return <Update loading={loading} navigateToDashboard={navigateToDashboard} actionUpdateUser={actionUpdateUser} />;
 };
 
 export default UpdateScreen;

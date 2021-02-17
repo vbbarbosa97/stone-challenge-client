@@ -82,6 +82,11 @@ export const CustomButtonCancel = styled(Button)`
     font-weight: bold;
     background-color: ${Colors.black};
 
+    &:disabled {
+      opacity: 0.6;
+      color: ${Colors.white};
+    }
+
     transition: 0.3s;
 
     &:hover {
