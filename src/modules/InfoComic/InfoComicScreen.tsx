@@ -1,36 +1,35 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable react/destructuring-assignment */
 import { useSnackbar } from 'notistack';
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { RouteComponentProps, useHistory } from 'react-router-dom';
 import { RequestAddCharacterFavorite } from '../../models/AddCharacterFavorite';
-import { Card, InfoCard, typeCard } from '../../models/Card';
-import { getCharacters } from '../../services/character.service';
+import { Card, InfoCard } from '../../models/Card';
+import { getCharactersOfComic } from '../../services/comic.service';
 import { addCharacterFavorite, removeCharacterFavorite } from '../../services/user.service';
 import { IGenericCard } from '../../shared/components/GenericCard';
-import { SearchCharacter } from './SearchCharacter';
+import { InfoComic } from './InfoComic';
 
-const SearchCharacterScreen = () => {
+const InfoComicScreen: React.FC<RouteComponentProps> = props => {
+  const [loading, setLoading] = useState(false);
   const [characters, setCharacters] = useState<IGenericCard[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [firstSearchPerformed, setFirstSearchPerformed] = useState<boolean>(false);
 
   const { enqueueSnackbar } = useSnackbar();
   const history = useHistory();
+  const [, , comicId] = props.location.pathname.split('/');
 
-  const navigateToRoute = (id: string, type: typeCard) => {
-    if (type === 'Character') {
-      const urlCharacter = `/character/${id}/comics`;
-      history.push(urlCharacter);
-    }
-    const urlComic = `/comic/${id}/characters`;
-    history.push(urlComic);
+  useEffect(() => {
+    actionGetCharactersOfComic();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const navigateToDashboard = () => {
+    history.push('/dashboard');
   };
 
-  const actionSearch = async (value: string) => {
+  const actionGetCharactersOfComic = async () => {
     try {
-      setFirstSearchPerformed(true);
       setLoading(true);
-      const response = await getCharacters(value);
+      const response = await getCharactersOfComic(comicId);
       const errorResponse = !response.success;
 
       if (errorResponse) {
@@ -46,7 +45,6 @@ const SearchCharacterScreen = () => {
         characterTrated = cardTrated;
         characterTrated.actionAddFavorite = actionAddCharacterFavorite;
         characterTrated.actionRemoveFavorite = actionRemoveCharacterFavorite;
-        characterTrated.actionNavigate = navigateToRoute;
 
         arrayCharacterTrated.push(characterTrated);
       });
@@ -92,19 +90,7 @@ const SearchCharacterScreen = () => {
     }
   };
 
-  const actionNavigateBack = () => {
-    history.push('/dashboard');
-  };
-
-  return (
-    <SearchCharacter
-      data={characters}
-      loading={loading}
-      firstSearchPerformed={firstSearchPerformed}
-      actionSearch={actionSearch}
-      actionNavigateBack={actionNavigateBack}
-    />
-  );
+  return <InfoComic characters={characters} loading={loading} navigateToDashboard={navigateToDashboard} />;
 };
 
-export default SearchCharacterScreen;
+export default InfoComicScreen;

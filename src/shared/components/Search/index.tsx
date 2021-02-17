@@ -1,12 +1,13 @@
 /* eslint-disable no-nested-ternary */
-import { CircularProgress, IconButton } from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
 import React from 'react';
 import { IoMdArrowBack } from 'react-icons/io';
 import { Colors } from '../../styles/colors';
 import { IGenericCard } from '../GenericCard';
+import { Loading } from '../Loading';
+import { NoResults } from '../NoResults';
 import { InputSearch } from './InputSearch';
 import { ListCard } from './ListCard';
-import NoResultImg from '../../../assets/noResults.svg';
 import * as S from './styles';
 
 interface ISearch {
@@ -43,14 +44,9 @@ export const Search = ({
         <InputSearch actionSearch={actionSearch} />
 
         {loading ? (
-          <S.DivLoading>
-            <CircularProgress style={{ color: Colors.strongRed }} size={36} />
-          </S.DivLoading>
+          <Loading />
         ) : firstSearchPerformed && data.length === 0 ? (
-          <S.DivNoResult>
-            <img src={NoResultImg} alt="NoResults" />
-            <strong>Nenhum resultado encontrado.</strong>
-          </S.DivNoResult>
+          <NoResults />
         ) : (
           <div style={{ paddingTop: 42 }}>
             <ListCard data={data} />

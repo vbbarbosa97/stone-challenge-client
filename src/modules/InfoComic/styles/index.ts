@@ -1,6 +1,6 @@
 import { Grid } from '@material-ui/core';
 import styled from 'styled-components';
-import { Colors } from '../../../styles/colors';
+import { Colors } from '../../../shared/styles/colors';
 
 export const MainContainer = styled.div`
   display: flex;
@@ -59,4 +59,10 @@ export const CustomGrid = styled(Grid)`
     justify-content: center;
     align-items: center;
   }
+`;
+
+
+
+export const CustomDivContainer = styled.div`
+  padding-top: 42px;
 `;

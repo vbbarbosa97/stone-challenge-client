@@ -1,13 +1,14 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { IconButton } from '@material-ui/core';
 import React, { useState } from 'react';
 import { FiBook, FiExternalLink, FiUsers } from 'react-icons/fi';
-import { InfoCard } from '../../../models/Card';
+import { InfoCard, typeCard } from '../../../models/Card';
 import { Colors } from '../../styles/colors';
 import * as S from './styles';
 
 export interface IGenericCard {
   id: string;
-  type: 'Comic' | 'Character';
+  type: typeCard;
   description?: string | null;
   imgUrl: string;
   isFavorite: boolean;
@@ -15,7 +16,7 @@ export interface IGenericCard {
   linkDetail: string;
   actionAddFavorite?: (data: InfoCard) => Promise<boolean>;
   actionRemoveFavorite?: (id: string) => Promise<boolean>;
-  actionNavigate?: (id: string) => void;
+  actionNavigate?: (id: string, type: typeCard) => void;
 }
 
 const GenericCard = ({
@@ -87,21 +88,23 @@ const GenericCard = ({
             </IconButton>
             <strong>Detalhes</strong>
           </div>
-          <div>
-            {type === 'Character' && actionNavigate && (
-              <IconButton onClick={() => actionNavigate!(id)}>
-                <FiBook size={20} />
-              </IconButton>
-            )}
-            {type === 'Comic' && actionNavigate && (
-              <IconButton onClick={() => actionNavigate!(id)}>
-                <FiUsers size={20} />
-              </IconButton>
-            )}
+          {actionNavigate && (
+            <div>
+              {type === 'Character' && (
+                <IconButton onClick={() => actionNavigate!(id, type)}>
+                  <FiBook size={20} />
+                </IconButton>
+              )}
+              {type === 'Comic' && (
+                <IconButton onClick={() => actionNavigate!(id, type)}>
+                  <FiUsers size={20} />
+                </IconButton>
+              )}
 
-            <strong>{type === 'Character' && actionNavigate && 'Revistas'}</strong>
-            <strong>{type === 'Comic' && actionNavigate && 'Personagens'}</strong>
-          </div>
+              <strong>{type === 'Character' && actionNavigate && 'Revistas'}</strong>
+              <strong>{type === 'Comic' && actionNavigate && 'Personagens'}</strong>
+            </div>
+          )}
         </S.Actions>
       </S.CustomDiv>
     </S.MainContainer>
