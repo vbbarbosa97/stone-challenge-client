@@ -20,11 +20,11 @@ export const UpdateScreen = () => {
     try {
       setLoading(true);
       const response = await updateRequestAction(data);
+      setLoading(false);
       if (response.success) {
         history.push('/dashboard');
         enqueueSnackbar('Cadastro atualizados com sucesso', { variant: 'success' });
       }
-      setLoading(false);
       return response.success;
     } catch (error) {
       setLoading(false);

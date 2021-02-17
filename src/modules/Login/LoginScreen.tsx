@@ -1,10 +1,12 @@
 import { useSnackbar } from 'notistack';
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AuthAsyncActions } from '../../context/actions/authAsyncAction';
 import { IRequestSession } from '../../models/Session';
 import { Login } from './Login';
 
 export const LoginScreen = () => {
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
   const { enqueueSnackbar } = useSnackbar();
   const { loginRequestAction } = AuthAsyncActions();
@@ -15,19 +17,22 @@ export const LoginScreen = () => {
 
   const actionCreateSession = async (data: IRequestSession) => {
     try {
+      setLoading(true);
       const response = await loginRequestAction(data);
+      setLoading(false);
       if (response.success) {
         history.push('/dashboard');
         enqueueSnackbar('Login efetuado com sucesso', { variant: 'success' });
       }
       return response.success;
     } catch (error) {
+      setLoading(false);
       enqueueSnackbar('Falha ao efetura login.', { variant: 'error' });
       return false;
     }
   };
 
-  return <Login navigateToRegister={navigateToRegister} actionCreateSession={actionCreateSession} />;
+  return <Login loading={loading} navigateToRegister={navigateToRegister} actionCreateSession={actionCreateSession} />;
 };
 
 export default LoginScreen;

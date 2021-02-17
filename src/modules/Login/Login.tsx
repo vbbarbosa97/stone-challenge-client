@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { CircularProgress } from '@material-ui/core';
 import { FormHandles, FormHelpers, SubmitHandler } from '@unform/core';
 import { Form } from '@unform/web';
 import React, { useRef, useState } from 'react';
@@ -7,6 +8,7 @@ import Logo from '../../assets/Logo.svg';
 import { IRequestSession } from '../../models/Session';
 import { Input } from '../../shared/components/Form';
 import { MainContainer } from '../../shared/components/styled/MainContainer';
+import { Colors } from '../../shared/styles/colors';
 import * as S from './styles/index';
 
 interface FormData {
@@ -17,9 +19,10 @@ interface FormData {
 interface LoginProps {
   navigateToRegister: () => void;
   actionCreateSession: (data: IRequestSession) => Promise<boolean>;
+  loading: boolean;
 }
 
-export const Login = ({ navigateToRegister, actionCreateSession }: LoginProps) => {
+export const Login = ({ navigateToRegister, actionCreateSession, loading }: LoginProps) => {
   const formRef = useRef<FormHandles>(null);
 
   const [togglePassword, setTogglePassword] = useState<boolean>(false);
@@ -87,7 +90,10 @@ export const Login = ({ navigateToRegister, actionCreateSession }: LoginProps) =
             </S.CustomLink>
           </S.CustomTextRegister>
 
-          <S.CustomButton type="submit">Entrar</S.CustomButton>
+          <S.CustomButton disabled={loading} type="submit">
+            {loading && <CircularProgress size={30} style={{ color: Colors.white, marginRight: 6 }} />}
+            Entrar
+          </S.CustomButton>
         </Form>
       </S.CustomDiv>
     </MainContainer>
