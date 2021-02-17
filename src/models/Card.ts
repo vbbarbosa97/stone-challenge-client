@@ -1,5 +1,7 @@
 import { DataResult } from './ResponseApiMarvel';
 
+export type typeCard = 'Comic' | 'Character';
+
 export interface InfoCard {
   id: string;
   description?: string | null;
@@ -10,7 +12,7 @@ export interface InfoCard {
 export class Card {
   id: string;
 
-  type: 'Comic' | 'Character';
+  type: typeCard;
 
   imgUrl: string;
 
@@ -22,7 +24,7 @@ export class Card {
 
   linkDetail: string;
 
-  constructor(type: 'Comic' | 'Character', data: DataResult) {
+  constructor(type: typeCard, data: DataResult) {
     this.id = data.id.toString();
     this.type = type;
     this.imgUrl = data.thumbnailUrl;

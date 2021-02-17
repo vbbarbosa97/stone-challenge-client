@@ -1,18 +1,20 @@
 /* eslint-disable no-nested-ternary */
-import { CircularProgress, IconButton } from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
 import { IoMdArrowForward } from 'react-icons/io';
-import * as S from './styles';
+import { typeCard } from '../../models/Card';
 import { Carousel } from '../../shared/components/Carousel/Carousel';
 import { IGenericCard } from '../../shared/components/GenericCard';
+import { Loading } from '../../shared/components/Loading';
+import { NoResults } from '../../shared/components/NoResults';
 import { Colors } from '../../shared/styles/colors';
-import NoResultImg from '../../assets/noResults.svg';
+import * as S from './styles';
 
 interface DashboardProps {
   comicsFavorites: IGenericCard[];
   charactersFavorites: IGenericCard[];
   loadingComics: boolean;
   loadingCharacters: boolean;
-  navigatetoRoute: (id: string) => void;
+  navigateToRoute: (id: string, type: typeCard) => void;
   navigateToSearchCharacter: () => void;
   navigateToSearchComic: () => void;
 }
@@ -22,7 +24,7 @@ export const Dashboard = ({
   charactersFavorites,
   loadingComics,
   loadingCharacters,
-  navigatetoRoute,
+  navigateToRoute,
   navigateToSearchCharacter,
   navigateToSearchComic,
 }: DashboardProps) => {
@@ -40,16 +42,11 @@ export const Dashboard = ({
         </S.DivHeader>
 
         {loadingCharacters ? (
-          <S.DivLoading>
-            <CircularProgress style={{ color: Colors.strongRed }} size={36} />
-          </S.DivLoading>
+          <Loading />
         ) : charactersFavorites.length === 0 ? (
-          <S.DivNoResult>
-            <img src={NoResultImg} alt="NoResults" />
-            <strong>Nenhum resultado encontrado.</strong>
-          </S.DivNoResult>
+          <NoResults />
         ) : (
-          <Carousel data={charactersFavorites} navigatetoRoute={navigatetoRoute} />
+          <Carousel data={charactersFavorites} navigateToRoute={navigateToRoute} />
         )}
       </S.CustomDiv>
 
@@ -65,16 +62,11 @@ export const Dashboard = ({
         </S.DivHeader>
 
         {loadingComics ? (
-          <S.DivLoading>
-            <CircularProgress style={{ color: Colors.strongRed }} size={36} />
-          </S.DivLoading>
+          <Loading />
         ) : comicsFavorites.length === 0 ? (
-          <S.DivNoResult>
-            <img src={NoResultImg} alt="NoResults" />
-            <strong>Nenhum resultado encontrado.</strong>
-          </S.DivNoResult>
+          <NoResults />
         ) : (
-          <Carousel data={comicsFavorites} navigatetoRoute={navigatetoRoute} />
+          <Carousel data={comicsFavorites} navigateToRoute={navigateToRoute} />
         )}
       </S.CustomDiv>
     </S.MainContainer>

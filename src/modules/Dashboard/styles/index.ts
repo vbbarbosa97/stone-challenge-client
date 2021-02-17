@@ -18,13 +18,6 @@ export const CustomDiv = styled.div`
   }
 `;
 
-export const DivLoading = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 100px;
-`;
-
 export const CustomDivContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -43,24 +36,5 @@ export const DivHeader = styled.div`
     font-family: Arial, Helvetica, sans-serif;
     color: ${Colors.strongRed};
     font-weight: bold;
-  }
-`;
-
-export const DivNoResult = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  padding: 30px;
-
-  > img {
-    width: 100px;
-    height: 100px;
-  }
-
-  > strong {
-    font-size: 14px;
-    padding: 16px 0px;
   }
 `;

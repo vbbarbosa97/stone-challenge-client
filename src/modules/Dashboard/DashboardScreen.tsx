@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { RequestAddCharacterFavorite } from '../../models/AddCharacterFavorite';
 import { RequestAddComicFavorite } from '../../models/AddComicFavorite';
-import { InfoCard } from '../../models/Card';
+import { InfoCard, typeCard } from '../../models/Card';
 import { CardCharacterFavorite } from '../../models/CharacterFavorite';
 import { CardComicFavorite } from '../../models/ComicFavorite';
 import {
@@ -32,8 +32,13 @@ const DashboardScreen = () => {
   const history = useHistory();
   const { enqueueSnackbar } = useSnackbar();
 
-  const navigatetoRoute = (id: string) => {
-    console.log(id);
+  const navigateToRoute = (id: string, type: typeCard) => {
+    if (type === 'Character') {
+      const urlCharacter = `/character/${id}/comics`;
+      history.push(urlCharacter);
+    }
+    const urlComic = `/comic/${id}/characters`;
+    history.push(urlComic);
   };
 
   const navigateToSearchCharacter = () => {
@@ -175,7 +180,7 @@ const DashboardScreen = () => {
 
   return (
     <Dashboard
-      navigatetoRoute={navigatetoRoute}
+      navigateToRoute={navigateToRoute}
       navigateToSearchCharacter={navigateToSearchCharacter}
       navigateToSearchComic={navigateToSearchComic}
       comicsFavorites={comicsFavorites}

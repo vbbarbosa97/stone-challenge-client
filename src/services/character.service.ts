@@ -14,3 +14,16 @@ export const getCharacters = async (value: string) => {
   const response = await axiosPostApi<IResult<ResponseApiMarvel>>('character', body);
   return response;
 };
+
+export const getComicsOfCharacters = async (characterId: String) => {
+  const user = getUserLocalStorage();
+
+  const body = {
+    userId: user?.id,
+  };
+
+  const url = `character/${characterId}/comics`;
+
+  const response = await axiosPostApi<IResult<ResponseApiMarvel>>(url, body);
+  return response;
+};

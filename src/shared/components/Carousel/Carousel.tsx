@@ -1,15 +1,16 @@
 import { IconButton } from '@material-ui/core';
 import React, { useState } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { typeCard } from '../../../models/Card';
 import GenericCard, { IGenericCard } from '../GenericCard';
 import * as S from './styles';
 
 interface CarouselProps {
   data: IGenericCard[];
-  navigatetoRoute: (id: string) => void;
+  navigateToRoute: (id: string, type: typeCard) => void;
 }
 
-export const Carousel = ({ data, navigatetoRoute }: CarouselProps) => {
+export const Carousel = ({ data, navigateToRoute }: CarouselProps) => {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const quantityCards = 3;
 
@@ -55,7 +56,7 @@ export const Carousel = ({ data, navigatetoRoute }: CarouselProps) => {
             actionAddFavorite={card.actionAddFavorite}
             actionRemoveFavorite={card.actionRemoveFavorite}
             linkDetail={card.linkDetail}
-            actionNavigate={() => navigatetoRoute(card.id)}
+            actionNavigate={() => navigateToRoute(card.id, card.type)}
           />
         </S.CustomDiv>
       ))}
