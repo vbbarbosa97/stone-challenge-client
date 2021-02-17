@@ -37,6 +37,7 @@ export const CustomDiv = styled.div`
   @media (max-width: 653px) {
     width: 300px;
     height: 450px;
+    padding: 16px;
   }
 `;
 
